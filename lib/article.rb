@@ -1,3 +1,5 @@
+# coding:euc-jp
+
 require "time"
 
 class Article

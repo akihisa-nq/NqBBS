@@ -1,3 +1,5 @@
+# coding:euc-jp
+
 require "gdbm"
 require "lib/article"
 
@@ -37,43 +39,49 @@ class Storage
 	end
 
 	def load_last_number
-		GDBM.open @data_file, nil, GDBM::FAST do |db|
+		unless File.exist?(@data_file)
+			GDBM.open(@data_file) do |db|
+				# nothing to do
+			end
+		end
+
+		GDBM.open( @data_file, nil, GDBM::FAST ) do |db|
 			return db.include?( "last") ? db["last"].to_i : 0
 		end
 	end
 
-	def load_articles 
+	def load_articles
 		last = self.load_last_number
 		i = @start > last ? last : @start
 		j = 0
 
-		GDBM.open @data_file, nil, GDBM::FAST do |db|
+		GDBM.open( @data_file, nil, GDBM::FAST ) do |db|
 			while i >= 1 and j < @num
 				article = Article.new
 
 				key = "id" + i.to_s + "author"
-				article.author = db[key] if db.include? key
+				article.author = db[key].force_encoding("euc-jp") if db.include?(key)
 
 				key = "id" + i.to_s + "subject"
-				article.subject = db[key] if db.include? key
+				article.subject = db[key].force_encoding("euc-jp") if db.include?(key)
 
 				key = "id" + i.to_s + "date"
-				article.date = db[key] if db.include? key
+				article.date = db[key].force_encoding("euc-jp") if db.include?(key)
 
 				key = "id" + i.to_s + "file"
-				article.file_url = db[key] if db.include? key
+				article.file_url = db[key].force_encoding("euc-jp") if db.include?(key)
 
 				key = "id" + i.to_s + "file_url"
-				article.file_url = db[key] if db.include? key
+				article.file_url = db[key].force_encoding("euc-jp") if db.include?(key)
 
 				key = "id" + i.to_s + "file_type"
-				article.file_type = db[key] if db.include? key
+				article.file_type = db[key].force_encoding("euc-jp") if db.include?(key)
 
 				article.id = i
 				
 				key = "id" + i.to_s + "text"
 				if db.include? key
-					article.text = db[key] 
+					article.text = db[key].force_encoding("euc-jp")
 					yield article
 					j += 1
 				end
@@ -88,7 +96,7 @@ class Storage
 	def add_article article
 		id = self.load_last_number + 1
 
-		GDBM.open @data_file, nil, GDBM::FAST do |db|
+		GDBM.open( @data_file, nil, GDBM::FAST ) do |db|
 			db["last"] = id.to_s
 			db["id" + id.to_s + "author"] = article.author
 			db["id" + id.to_s + "subject"] = article.subject

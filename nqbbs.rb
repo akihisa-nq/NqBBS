@@ -1,13 +1,17 @@
 #!/usr/bin/ruby
+# coding:euc-jp
 
 require "cgi"
 require "kconv"
 require "erb"
 
+$: << File.dirname(__FILE__)
+
 require "lib/article"
 require "lib/storage"
 
 storage = Storage.new("data.gdb")
+CGI.accept_charset = "euc-jp"
 
 cgi = CGI.new
 new_article = Article.new
@@ -49,7 +53,7 @@ end
 if mode == "view"
 	print "Content-type: text/html\n\n"
 
-	File.open("./template.rhtml") do |file|
+	File.open("./template.rhtml", "r:euc-jp" ) do |file|
 		ERB.new(file.read).run
 	end
 end
