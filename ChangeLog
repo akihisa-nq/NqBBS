@@ -1,0 +1,25 @@
+# Copyright 2004 Akihisa Higuchi; Distributed under the GPL v2
+*nqbbs-0.0.4; (9 May 2004)
+  9 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>:
+  most files are changed
+  
+  8 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>:
+  many bugs are fixed
+*nqbbs-0.0.3; (8 May 2004)
+  8 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>: 
+  many bugs are fixed
+
+  8 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>: 
+  送信先が間違っていたバグを修正
+
+*nqbbs-0.0.2.1 (8 May 2004)
+  8 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>:
+  いくつかの醜いバグを修正
+
+*nqbbs-0.0.2 (8 May 2004)
+  8 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>:
+  投稿機能を追加（したつもり）
+
+*nqbbs-0.0.1 (5 May 2004)
+  5 May 2004; Akihisa Higuchi <akihisa@nicko-q.ath.cx>:
+  とりあえずリリース

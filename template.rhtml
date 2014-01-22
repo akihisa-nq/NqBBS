@@ -1,0 +1,82 @@
+<html>
+ <head>
+  <title>
+   H2O+ 制作ノート
+  </title>
+  <meta http-equiv="Content-type" content="text/html; charset=euc-jp">
+  <style>
+   td {
+    font-size : 12px;
+    color : #FF5500;
+   }
+  </style>
+ </head>
+ <body>
+ <form method="post" enctype="multipart/form-data" action="nqbbs.rb">
+  <input type="hidden" name="mode" value="add">
+  <table style="background-color : white;">
+   <tr>
+    <td>
+     Subject
+    </td>
+    <td>
+     <input type="text" size="70" name="subject">
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Name
+    </td>
+    <td>
+     <input type="text" size="70" name="author">
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Text
+    </td>
+    <td>
+     <textarea name="text" rows="5" cols="70"></textarea>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Picture
+    </td>
+    <td>
+     <input type="file" size="65" name="file" >
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input type="submit" value="送信">
+    </td>
+   </tr>
+  </table>
+ </form>
+ <% storage.load_articles do |item|  %>
+  <p>
+   <div style="border-bottom:double 3px gray; margin-bottom: 0.3em;">
+    No. <%= item.id.to_s %>
+    Subject : <%= item.subject %>
+    <em style="font-size:12px;color:#b3b3b3;">Author : <%= item.author %>
+    Date : <%= item.date %></em>
+    <a href="./nqbbs.rb?mode=del&del_id=<%= item.id.to_s %>&start=<%= storage.start.to_s %>">削除</a>
+    </div>
+   <% if not item.file_url == nil %>
+   <img src="<%= item.file_url %>">
+   <br clear="all">
+   <% end %>
+   <%= item.text %>
+  </p>
+  <% end %>
+ <div>
+  <% if storage.start - storage.num > 1 %>
+  [<a href="nqbbs.rb?start=<%= storage.prevous_id.to_s %>&num=<%= storage.num %>">前の10件</a>]
+  <% end %>
+  <% if storage.start < storage.load_last_number %>
+  [<a href="nqbbs.rb?start=<%= (storage.start + storage.num).to_s %>&num=<%= storage.num %>">次の10件</a>]
+  <% end %>
+  </div>
+ </body>
+</html>
