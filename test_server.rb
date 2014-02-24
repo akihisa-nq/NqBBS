@@ -1,7 +1,10 @@
 # coding:utf-8
+
 require "webrick"
 
-http = WEBrick::HTTPServer.new(:BindAddress => "127.0.0.1", :Port => 8080)
+RUBY_PATH = ENV["RUBY_PATH"]
+
+http = WEBrick::HTTPServer.new(:BindAddress => "127.0.0.1", :Port => 8080, :CGIInterpreter => RUBY_PATH)
 trap(:INT) { http.shutdown }
 
 http.mount_proc("/") do |req, res|
